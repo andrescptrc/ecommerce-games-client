@@ -1,7 +1,9 @@
+import BasicLayout from "../layouts/BasicLayout";
+
 export default function Home() {
   return (
-    <div className="home">
-      <h2>Holis</h2>
-    </div>
+    <BasicLayout>
+      <h1>We are at home!</h1>
+    </BasicLayout>
   );
 }

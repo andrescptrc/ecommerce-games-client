@@ -1,4 +1,13 @@
+// Abstracts
+@import "./abstracts/variables.scss";
+
+//Base
 @import "./base/base.scss";
 
-/* Layouts */
+// Layouts
 @import "./layouts/BasicLayout.scss";
+
+//Components
+@import "./components/Header.scss";
+@import "./components/TopBar.scss";
+@import "./components/Menu.scss";
