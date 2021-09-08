@@ -2,3 +2,28 @@ html {
   // This defines that 1rem is
   font-size: 62.5%; //1rem = 10px; 10px/16px = 62.5%
 }
+
+.ui.form {
+  .ui.input {
+    input {
+      border: 1px solid $border-grey-light;
+      font-size: 1.5rem;
+    }
+  }
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.ui.button {
+  font-size: 1.3rem;
+}
+
+.ui.button.submit {
+  background-color: $primary;
+  color: $font-light;
+  margin: 0;
+}

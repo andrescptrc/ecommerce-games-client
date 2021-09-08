@@ -1,8 +1,19 @@
 .basic-layout {
   min-height: 100vh;
+  background-image: url("https://game-ecomm3rce.s3.amazonaws.com/static/047+bg-web.jpg");
+  background-size: cover;
+  background-position: center;
 
   .content {
     background-color: $background-grey-light;
-    height: 100vh;
+    height: calc(100vh - 13.285rem);
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 }
