@@ -13,17 +13,7 @@ export default function RegisterForm(props) {
   const formik = useFormik({
     initialValues: initialValues(),
     validationSchema: Yup.object(validationSchema()),
-    onSubmit: async (formData) => {
-      setLoading(true);
-      const data = await registerApi(formData);
-      if (data?.jwt) {
-        toast.success("Account created");
-        showLoginForm();
-      } else {
-        toast.error("An error has ocurred, try it again");
-      }
-      setLoading(false);
-    },
+    onSubmit: (formData) => handleDataUser(formData, setLoading, showLoginForm),
   });
 
   return (
@@ -65,7 +55,7 @@ export default function RegisterForm(props) {
       />
 
       <div className="actions">
-        <Button type="button" basic>
+        <Button type="button" basic onClick={showLoginForm}>
           Log in
         </Button>
         <Button type="submit" className="submit" loading={loading}>
@@ -95,3 +85,15 @@ function validationSchema() {
     username: Yup.string().required(true),
   };
 }
+
+const handleDataUser = async (formData, setLoading, showLoginForm) => {
+  setLoading(true);
+  const data = await registerApi(formData);
+  if (data?.jwt) {
+    toast.success("Account created");
+    showLoginForm();
+  } else {
+    toast.error("An error has ocurred, try it again");
+  }
+  setLoading(false);
+};
