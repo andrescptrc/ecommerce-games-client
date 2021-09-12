@@ -4,17 +4,31 @@ import * as Yup from "yup";
 import { toast } from "react-toastify";
 import { useState } from "react";
 
-import { loginApi } from "../../../api/user";
+import { loginApi, resetPasswordApi } from "../../../api/user";
+import useAuth from "../../../hooks/useAuth";
 
 export default function LoginForm(props) {
-  const { showRegisterForm } = props;
+  const { showRegisterForm, onCloseModal } = props;
   const [loading, setLoading] = useState(false);
+  const { login } = useAuth();
 
   const formik = useFormik({
     initialValues: initialValue(),
     validationSchema: Yup.object(validationSchema()),
-    onSubmit: (formData) => handleLogin(formData, setLoading),
+    onSubmit: (formData) =>
+      handleLogin(formData, setLoading, onCloseModal, login),
   });
+
+  const resetPassword = () => {
+    formik.setErrors({});
+    const validateEmail = Yup.string().email(true).required(true);
+
+    if (!validateEmail.isValidSync(formik.values.identifier)) {
+      formik.setErrors({ identifier: true });
+    } else {
+      resetPasswordApi(formik.values.identifier);
+    }
+  };
 
   return (
     <Form className="login-form" onSubmit={formik.handleSubmit}>
@@ -41,7 +55,9 @@ export default function LoginForm(props) {
           <Button className="submit" type="submit" loading={loading}>
             Log in
           </Button>
-          <Button type="button">Did you forget your password?</Button>
+          <Button type="button" onClick={resetPassword}>
+            Did you forget your password?
+          </Button>
         </div>
       </div>
     </Form>
@@ -62,9 +78,14 @@ function validationSchema() {
   };
 }
 
-const handleLogin = async (formData, setLoading) => {
+const handleLogin = async (formData, setLoading, onCloseModal, login) => {
   setLoading(true);
   const res = await loginApi(formData);
-  console.log(res);
+  if (res?.jwt) {
+    login(res.jwt);
+    onCloseModal();
+  } else {
+    toast.error("The email or the password are wrong");
+  }
   setLoading(false);
 };
