@@ -1,16 +1,22 @@
 import React, { useMemo, useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import jwtDecode from "jwt-decode";
+import { useRouter } from "next/router";
 import "semantic-ui-css/semantic.min.css";
 import "react-toastify/dist/ReactToastify.css";
 
 import "../scss/main.scss";
-import { setTokenToLocalStorage, getTokenOfLocalStorage } from "../api/token";
+import {
+  setTokenToLocalStorage,
+  getTokenOfLocalStorage,
+  removeTokenOfLocalStorage,
+} from "../api/token";
 import AuthContext from "../context/AuthContext";
 
 export default function MyApp({ Component, pageProps }) {
   const [auth, setAuth] = useState(undefined);
   const [reloadUser, setReloadUser] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const token = getTokenOfLocalStorage();
@@ -34,11 +40,19 @@ export default function MyApp({ Component, pageProps }) {
     });
   };
 
+  const logout = () => {
+    if (auth) {
+      removeTokenOfLocalStorage();
+      setAuth(null);
+      router.push("/");
+    }
+  };
+
   const authData = useMemo(
     () => ({
       auth,
-      login: login,
-      logout: () => null,
+      login,
+      logout,
       setReloadUser,
     }),
     [auth]

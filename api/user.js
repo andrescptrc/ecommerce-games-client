@@ -1,4 +1,5 @@
 import { BASE_PATH } from "../utils/constants";
+import { authFetch } from "../utils/fetch";
 
 export async function registerApi(formData) {
   try {
@@ -55,6 +56,16 @@ export async function resetPasswordApi(email) {
     return data;
   } catch (error) {
     console.log(error);
+    return null;
+  }
+}
+
+export async function getMeApi(logout) {
+  try {
+    const url = `${BASE_PATH}/users/me`;
+    const res = await authFetch(url, null, logout);
+    return res ? res : null;
+  } catch (error) {
     return null;
   }
 }
