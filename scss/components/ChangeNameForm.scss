@@ -1,0 +1,20 @@
+.change-name-form {
+  padding: 2rem 1.5rem;
+
+  > h4 {
+    color: $primary;
+    font-size: 2.2rem;
+  }
+
+  > form {
+    text-align: center;
+
+    & .fields .field {
+      width: 100% !important;
+    }
+
+    .submit {
+      padding: 1.2rem 6rem;
+    }
+  }
+}

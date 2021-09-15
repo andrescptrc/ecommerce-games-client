@@ -84,13 +84,13 @@ function MenuOptions(props) {
           </Link>
           <Link href="/wishlist">
             <Menu.Item>
-              <Icon name="heart ouline" />
+              <Icon name="heart outline" />
               My wishlist
             </Menu.Item>
           </Link>
           <Link href="/account">
             <Menu.Item>
-              <Icon name="user ouline" />
+              <Icon name="user outline" />
               {user.name} {user.lastname}
             </Menu.Item>
           </Link>
