@@ -8,7 +8,7 @@ import ChangeNameForm from "../components/account/ChangeNameForm/ChangeNameForm"
 
 export default function account() {
   const [user, setUser] = useState(undefined);
-  const { auth, logout } = useAuth();
+  const { auth, logout, setReloadUser } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
@@ -26,17 +26,25 @@ export default function account() {
 
   return (
     <BasicLayout className="account">
-      <Configuration user={user} logout={logout} />
+      <Configuration
+        user={user}
+        logout={logout}
+        setReloadUser={setReloadUser}
+      />
     </BasicLayout>
   );
 }
 
-function Configuration({ user, logout }) {
+function Configuration({ user, logout, setReloadUser }) {
   return (
     <div className="account__configuration">
       <div className="title">Settings</div>
       <div className="data">
-        <ChangeNameForm user={user} logout={logout} />
+        <ChangeNameForm
+          user={user}
+          logout={logout}
+          setReloadUser={setReloadUser}
+        />
       </div>
     </div>
   );

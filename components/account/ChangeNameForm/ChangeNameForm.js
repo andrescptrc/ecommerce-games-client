@@ -6,14 +6,14 @@ import { toast } from "react-toastify";
 
 import { updateNameApi } from "../../../api/user";
 
-export default function ChangeNameForm({ user, logout }) {
+export default function ChangeNameForm({ user, logout, setReloadUser }) {
   const [loading, setLoading] = useState(false);
 
   const formik = useFormik({
     initialValues: initialValues(user),
     validationSchema: Yup.object(validationSchema()),
     onSubmit: (formData) =>
-      handleChangeForm(formData, user, setLoading, logout),
+      handleChangeForm(formData, user, setLoading, logout, setReloadUser),
   });
 
   return (
@@ -58,13 +58,20 @@ function validationSchema() {
   };
 }
 
-async function handleChangeForm(formData, user, setLoading, logout) {
+async function handleChangeForm(
+  formData,
+  user,
+  setLoading,
+  logout,
+  setReloadUser
+) {
   setLoading(true);
   const res = await updateNameApi(user.id, formData, logout);
   if (!res) {
     toast.error("An error has ocurred to change the name and lastnames");
   } else {
-    console.log("Name changed");
+    setReloadUser((reloadUser) => !reloadUser);
+    toast.success("The name and lastname has been changed");
   }
   setLoading(false);
 }
