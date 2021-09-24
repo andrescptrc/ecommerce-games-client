@@ -5,26 +5,61 @@ import * as Yup from "yup";
 import { toast } from "react-toastify";
 
 import useAuth from "../../../hooks/useAuth";
-import { createAddressApi } from "../../../api/address";
+import { createAddressApi, updateAddressApi } from "../../../api/address";
 
-export default function AddressForm({ setShowModal, setReloadAddresses }) {
+export default function AddressForm({
+  setShowModal,
+  setReloadAddresses,
+  newAddress,
+  address,
+}) {
   const [loading, setLoading] = useState(false);
   const { auth, logout } = useAuth();
 
   const formik = useFormik({
-    initialValues: initialValues(),
+    initialValues: initialValues(address),
     validationSchema: Yup.object(validationSchema()),
-    onSubmit: (formData) =>
-      createAddress(
-        formData,
-        setLoading,
-        auth,
-        logout,
-        formik,
-        setShowModal,
-        setReloadAddresses
-      ),
+    onSubmit: (formData) => {
+      newAddress ? createAddress(formData) : updateAddress(formData);
+    },
   });
+
+  const createAddress = async (formData) => {
+    setLoading(true);
+    const formDataTemp = {
+      ...formData,
+      user: auth.idUser,
+    };
+    const res = await createAddressApi(formDataTemp, logout);
+    if (!res) {
+      toast.warning("An error has ocurred");
+      setLoading(false);
+    } else {
+      formik.resetForm();
+      setReloadAddresses(true);
+      setLoading(false);
+      setShowModal(false);
+    }
+  };
+
+  const updateAddress = async (formData) => {
+    setLoading(true);
+    const formDataTemp = {
+      ...formData,
+      user: auth.idUser,
+    };
+
+    const res = await updateAddressApi(address._id, formDataTemp, logout);
+    if (!res) {
+      toast.warning("An error has ocurred");
+      setLoading(false);
+    } else {
+      formik.resetForm();
+      setReloadAddresses(true);
+      setLoading(false);
+      setShowModal(false);
+    }
+  };
 
   return (
     <Form onSubmit={formik.handleSubmit}>
@@ -34,7 +69,7 @@ export default function AddressForm({ setShowModal, setReloadAddresses }) {
         label="Title's address"
         placeholder="Title's address"
         onChange={formik.handleChange}
-        values={formik.values.title}
+        value={formik.values.title}
         error={formik.errors.title}
       />
 
@@ -45,7 +80,7 @@ export default function AddressForm({ setShowModal, setReloadAddresses }) {
           label="Name and lastname"
           placeholder="Name and lastname"
           onChange={formik.handleChange}
-          values={formik.values.name}
+          value={formik.values.name}
           error={formik.errors.name}
         />
         <Form.Input
@@ -54,7 +89,7 @@ export default function AddressForm({ setShowModal, setReloadAddresses }) {
           label="Address"
           placeholder="Address"
           onChange={formik.handleChange}
-          values={formik.values.address}
+          value={formik.values.address}
           error={formik.errors.address}
         />
       </Form.Group>
@@ -65,7 +100,7 @@ export default function AddressForm({ setShowModal, setReloadAddresses }) {
           label="City"
           placeholder="City"
           onChange={formik.handleChange}
-          values={formik.values.city}
+          value={formik.values.city}
           error={formik.errors.city}
         />
         <Form.Input
@@ -74,7 +109,7 @@ export default function AddressForm({ setShowModal, setReloadAddresses }) {
           label="State/Region"
           placeholder="State/Region"
           onChange={formik.handleChange}
-          values={formik.values.state}
+          value={formik.values.state}
           error={formik.errors.state}
         />
       </Form.Group>
@@ -85,7 +120,7 @@ export default function AddressForm({ setShowModal, setReloadAddresses }) {
           label="Postal Code"
           placeholder="Postal Code"
           onChange={formik.handleChange}
-          values={formik.values.postalCode}
+          value={formik.values.postalCode}
           error={formik.errors.postalCode}
         />
         <Form.Input
@@ -94,28 +129,28 @@ export default function AddressForm({ setShowModal, setReloadAddresses }) {
           label="Phone number"
           placeholder="Phone number"
           onChange={formik.handleChange}
-          values={formik.values.phone}
+          value={formik.values.phone}
           error={formik.errors.phone}
         />
       </Form.Group>
       <div className="actions">
         <Button className="submit" type="submit" loading={loading}>
-          Create a address
+          {newAddress ? "Create a address" : "Update address"}
         </Button>
       </div>
     </Form>
   );
 }
 
-function initialValues() {
+function initialValues(address) {
   return {
-    title: "",
-    name: "",
-    address: "",
-    city: "",
-    state: "",
-    postalCode: "",
-    phone: "",
+    title: address?.title || "",
+    name: address?.name || "",
+    address: address?.address || "",
+    city: address?.city || "",
+    state: address?.state || "",
+    postalCode: address?.postalCode || "",
+    phone: address?.phone || "",
   };
 }
 
@@ -130,29 +165,3 @@ function validationSchema() {
     phone: Yup.string().required(true),
   };
 }
-
-const createAddress = async (
-  formData,
-  setLoading,
-  auth,
-  logout,
-  formik,
-  setShowModal,
-  setReloadAddresses
-) => {
-  setLoading(true);
-  const formDataTemp = {
-    ...formData,
-    user: auth.idUser,
-  };
-  const res = await createAddressApi(formDataTemp, logout);
-  if (!res) {
-    toast.warning("An error has ocurred");
-    setLoading(false);
-  } else {
-    formik.resetForm();
-    setReloadAddresses(true);
-    setLoading(false);
-    setShowModal(false);
-  }
-};
