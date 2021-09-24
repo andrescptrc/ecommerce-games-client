@@ -3,6 +3,7 @@
   background-image: url("https://game-ecomm3rce.s3.amazonaws.com/static/047+bg-web.jpg");
   background-size: cover;
   background-position: center;
+  overflow-y: hidden;
 
   .content {
     background-color: $background-grey-light;
@@ -13,7 +14,7 @@
     overflow-y: auto;
 
     &::-webkit-scrollbar {
-      display: none;
+      //display: none;
     }
   }
 }

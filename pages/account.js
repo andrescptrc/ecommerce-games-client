@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { Icon } from "semantic-ui-react";
 
 import BasicLayout from "../layouts/BasicLayout";
 import useAuth from "../hooks/useAuth";
 import { getMeApi } from "../api/user";
-import ChangeNameForm from "../components/Account/ChangeNameForm/ChangeNameForm";
-import ChangeEmailForm from "../components/Account/ChangeEmailForm/ChangeEmailForm";
-import ChangePasswordForm from "../components/Account/ChangePasswordForm/ChangePasswordForm";
+import ChangeNameForm from "../components/Account/ChangeNameForm";
+import ChangeEmailForm from "../components/Account/ChangeEmailForm";
+import ChangePasswordForm from "../components/Account/ChangePasswordForm";
+import BasicModal from "../components/Modal/BasicModal";
+import AddressForm from "../components/Account/AddressForm";
+import ListAddress from "../components/Account/ListAddress";
 
 export default function account() {
   const [user, setUser] = useState(undefined);
@@ -53,7 +57,36 @@ function Configuration({ user, logout, setReloadUser }) {
           setReloadUser={setReloadUser}
         />
         <ChangePasswordForm user={user} logout={logout} />
+        <Adresses />
       </div>
+    </div>
+  );
+}
+
+function Adresses() {
+  const [showModal, setShowModal] = useState(false);
+  const [titleModal, setTitleModal] = useState("");
+  const [formModal, setFormModal] = useState(null);
+
+  const openModal = (title) => {
+    setTitleModal(title);
+    setFormModal(<AddressForm setShowModal={setShowModal} />);
+    setShowModal(true);
+  };
+
+  return (
+    <div className="account__adresses">
+      <div className="title">
+        Adresses
+        <Icon name="plus" link onClick={() => openModal("New address")} />
+      </div>
+      <div className="data">
+        <ListAddress />
+      </div>
+
+      <BasicModal show={showModal} setShow={setShowModal} title={titleModal}>
+        {formModal}
+      </BasicModal>
     </div>
   );
 }

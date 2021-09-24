@@ -2,6 +2,7 @@
   &__configuration {
     position: relative;
     padding: 1rem;
+    overflow-y: auto;
 
     .title {
       width: max-content;
@@ -14,6 +15,16 @@
     .data {
       background-color: $background-light;
       box-shadow: 0.1rem 0.1rem 0.2rem 0 rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  &__adresses {
+    .title {
+      i {
+        position: absolute;
+        right: 10px;
+        color: $font-dark;
+      }
     }
   }
 }

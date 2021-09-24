@@ -62,7 +62,7 @@ export default function MyApp({ Component, pageProps }) {
 
   return (
     <AuthContext.Provider value={authData}>
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
       <ToastContainer
         position="top-right"
         autoClose={5000}
