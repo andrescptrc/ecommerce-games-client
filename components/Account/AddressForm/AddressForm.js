@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import useAuth from "../../../hooks/useAuth";
 import { createAddressApi } from "../../../api/address";
 
-export default function AddressForm({ setShowModal }) {
+export default function AddressForm({ setShowModal, setReloadAddresses }) {
   const [loading, setLoading] = useState(false);
   const { auth, logout } = useAuth();
 
@@ -15,7 +15,15 @@ export default function AddressForm({ setShowModal }) {
     initialValues: initialValues(),
     validationSchema: Yup.object(validationSchema()),
     onSubmit: (formData) =>
-      createAddress(formData, setLoading, auth, logout, formik, setShowModal),
+      createAddress(
+        formData,
+        setLoading,
+        auth,
+        logout,
+        formik,
+        setShowModal,
+        setReloadAddresses
+      ),
   });
 
   return (
@@ -129,7 +137,8 @@ const createAddress = async (
   auth,
   logout,
   formik,
-  setShowModal
+  setShowModal,
+  setReloadAddresses
 ) => {
   setLoading(true);
   const formDataTemp = {
@@ -142,6 +151,7 @@ const createAddress = async (
     setLoading(false);
   } else {
     formik.resetForm();
+    setReloadAddresses(true);
     setLoading(false);
     setShowModal(false);
   }

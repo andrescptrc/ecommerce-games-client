@@ -5,17 +5,18 @@ import { map, size } from "lodash";
 import { getAddressesApi } from "../../../api/address";
 import useAuth from "../../../hooks/useAuth";
 
-export default function ListAddress() {
+export default function ListAddress(props) {
   const [addresses, setAddresses] = useState(null);
-
   const { auth, logout } = useAuth();
+  const { reloadAddresses, setReloadAddresses } = props;
 
   useEffect(() => {
     (async () => {
       const res = await getAddressesApi(auth.idUser, logout);
       setAddresses(res || []);
+      setReloadAddresses(false);
     })();
-  }, []);
+  }, [reloadAddresses]);
 
   if (!addresses) return null;
 
