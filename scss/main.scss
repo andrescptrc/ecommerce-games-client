@@ -5,7 +5,8 @@
 @import "./base/base.scss";
 
 //Pages
-@import "./components/account.scss";
+@import "./pages/account.scss";
+@import "./pages/index.scss";
 
 // Layouts
 @import "./layouts/BasicLayout.scss";
@@ -21,3 +22,4 @@
 @import "./components/ChangePasswordForm.scss";
 @import "./components/AddressForm.scss";
 @import "./components/AddressList.scss";
+@import "./components/GamesList.scss";
