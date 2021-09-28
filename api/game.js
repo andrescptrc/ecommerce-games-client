@@ -28,3 +28,12 @@ export async function getGamesPlatformApi(platform, limit, start) {
     return null;
   }
 }
+
+export async function getTotalGamesPlatformApi(platform) {
+  try {
+    const url = `${BASE_PATH}/games/count?platform.url=${platform}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    return data;
+  } catch (error) {}
+}
