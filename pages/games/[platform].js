@@ -6,7 +6,7 @@ import { getGamesPlatformApi, getTotalGamesPlatformApi } from "../../api/game";
 import Games from "../../components/ListGames/Games";
 import Pagination from "../../components/Pagination";
 
-const limitPerPage = 10;
+const limitPerPage = 2;
 
 export default function Platform() {
   const { query } = useRouter();
@@ -31,7 +31,7 @@ export default function Platform() {
         setGames(res);
       }
     })();
-  }, [platform]);
+  }, [query]);
 
   useEffect(() => {
     (async () => {
@@ -40,7 +40,7 @@ export default function Platform() {
         setTotalGames(res);
       }
     })();
-  }, [platform]);
+  }, [query]);
 
   return (
     <BasicLayout className="home">

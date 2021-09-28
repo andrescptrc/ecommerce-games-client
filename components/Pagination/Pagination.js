@@ -21,7 +21,7 @@ export default function Pagination({ totalGames, page, limitPerPage }) {
         totalPages={totalPages}
         firstItem={null}
         lastItem={null}
-        onPageChange={(_, data) => goToPage(data)}
+        onPageChange={(_, data) => goToPage(data.activePage)}
         boundaryRange={0}
         siblingRange={1}
         ellipsisItem={null}

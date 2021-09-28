@@ -24,11 +24,11 @@
       &:focus {
         outline: none !important;
       }
+    }
 
-      &:active {
-        background-color: $background-grey;
-        color: $font-light;
-      }
+    .active.item {
+      background-color: $background-grey;
+      color: $font-light;
     }
   }
 }
