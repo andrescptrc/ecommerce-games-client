@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { size } from "lodash";
-import { Loader } from "semantic-ui-react";
 
 import BasicLayout from "../layouts/BasicLayout";
 import { getLastGamesApi } from "../api/game";
-import ListGames from "../components/ListGames";
+import Games from "../components/ListGames/Games";
 
 export default function Home() {
   const [games, setGames] = useState(null);
@@ -19,13 +18,7 @@ export default function Home() {
 
   return (
     <BasicLayout className="home">
-      {!games && <Loader active>Loading games</Loader>}
-      {games && size(games) === 0 && (
-        <div>
-          <h3>There's no games available</h3>
-        </div>
-      )}
-      {size(games) > 0 && <ListGames games={games} />}
+      <Games games={games} />
     </BasicLayout>
   );
 }
