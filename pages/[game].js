@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 
 import BasicLayout from "../layouts/BasicLayout";
 import { getGameByUrlApi } from "../api/game";
+import HeaderGame from "../components/Game/HeaderGame";
 
 export default function Game() {
   const [game, setGame] = useState(null);
@@ -13,12 +14,14 @@ export default function Game() {
       const res = await getGameByUrlApi(query.game);
       setGame(res[0]);
     })();
-  }, []);
+  }, [query]);
+
+  if (!game) return null;
 
   return (
     <BasicLayout>
-      <h1>We're on Game {query.game}</h1>
-      <h1>We're on Game</h1>
+      <HeaderGame game={game} />
+      <p>TabsGame</p>
     </BasicLayout>
   );
 }
