@@ -5,4 +5,19 @@
     width: 100% !important;
     height: 62rem !important;
   }
+
+  &__content {
+    padding: 1.4rem;
+    color: $font-grey;
+
+    &-date {
+      display: flex;
+      margin-top: 2rem;
+
+      h4 {
+        color: $primary;
+        margin-right: 1rem;
+      }
+    }
+  }
 }
