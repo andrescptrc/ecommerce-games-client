@@ -5,6 +5,7 @@ import BasicLayout from "../../layouts/BasicLayout";
 import { getGamesPlatformApi, getTotalGamesPlatformApi } from "../../api/game";
 import Games from "../../components/ListGames/Games";
 import Pagination from "../../components/Pagination";
+import formatRelativeWithOptions from "date-fns/fp/formatRelativeWithOptions";
 
 const limitPerPage = 2;
 
@@ -44,7 +45,7 @@ export default function Platform() {
 
   return (
     <BasicLayout className="home">
-      <Games games={games} />
+      <Games games={games} title="There's no games available" />
       {totalGames ? (
         <Pagination
           totalGames={totalGames}

@@ -40,22 +40,24 @@ export default function GamesList({ games }) {
 }
 
 function Game({ game }) {
+  const { url, poster, title, discount, price } = game;
+
   return (
     <Grid.Column className="games-list__game">
-      <Link href={`/${game.url}`}>
+      <Link href={`/${url}`}>
         <a>
           <div className="games-list__game-poster">
-            <Image src={game.poster.url} alt={game.title} />
+            <Image src={poster.url} alt={title} />
             <div className="games-list__game-poster-info">
-              {game.discount ? (
-                <span className="discount">-{game.discount}</span>
+              {discount ? (
+                <span className="discount">-{discount}</span>
               ) : (
                 <span></span>
               )}
-              <span className="price">${game.price}</span>
+              <span className="price">${price}</span>
             </div>
           </div>
-          <h2>{game.title}</h2>
+          <h2>{title}</h2>
         </a>
       </Link>
     </Grid.Column>

@@ -52,7 +52,17 @@ export async function deleteFavoriteApi(idUser, idGame, logout) {
     }
   } catch (error) {
     console.log(error);
-    console.log("hola");
+    return null;
+  }
+}
+
+export async function getFavoriteApi(idUser, logout) {
+  try {
+    const url = `${BASE_PATH}/favorites?user=${idUser}`;
+    const res = await authFetch(url, null, logout);
+    return res;
+  } catch (error) {
+    console.log(error);
     return null;
   }
 }

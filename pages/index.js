@@ -18,7 +18,7 @@ export default function Home() {
 
   return (
     <BasicLayout className="home">
-      <Games games={games} />
+      <Games games={games} title="There's no games available" />
     </BasicLayout>
   );
 }
