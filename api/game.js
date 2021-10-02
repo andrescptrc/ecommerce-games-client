@@ -1,3 +1,4 @@
+import { result } from "lodash-es";
 import { BASE_PATH } from "../utils/constants";
 
 export async function getLastGamesApi(limit) {
@@ -43,6 +44,18 @@ export async function getGameByUrlApi(path) {
     const url = `${BASE_PATH}/games?url=${path}`;
     const res = await fetch(url);
     const data = res.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
+
+export async function searchGamesApi(title) {
+  try {
+    const url = `${BASE_PATH}/games?_q=${title}`;
+    const res = await fetch(url);
+    const data = await res.json();
     return data;
   } catch (error) {
     console.log(error);
