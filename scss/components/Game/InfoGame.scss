@@ -12,11 +12,14 @@
 
     &-date {
       display: flex;
+      align-items: center;
       margin-top: 2rem;
+      font-size: 1.5rem;
 
       h4 {
         color: $primary;
-        margin-right: 1rem;
+        font-size: 1.5rem;
+        margin: 0 1rem 0 0;
       }
     }
   }
