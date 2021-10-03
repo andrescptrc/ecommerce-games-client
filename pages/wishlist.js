@@ -5,10 +5,13 @@ import BasicLayout from "../layouts/BasicLayout";
 import useAuth from "../hooks/useAuth";
 import { getFavoriteApi } from "../api/favorite";
 import Games from "../components/ListGames/Games";
+import useCart from "../hooks/useCart";
 
 export default function wishlist() {
   const [games, setGames] = useState(null);
   const { auth, logout } = useAuth();
+
+  console.log(useCart());
 
   useEffect(() => {
     (async () => {
