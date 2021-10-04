@@ -11,8 +11,6 @@ export default function wishlist() {
   const [games, setGames] = useState(null);
   const { auth, logout } = useAuth();
 
-  console.log(useCart());
-
   useEffect(() => {
     (async () => {
       const res = await getFavoriteApi(auth.idUser, logout);

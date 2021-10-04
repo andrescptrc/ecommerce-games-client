@@ -2,7 +2,7 @@ import React, { useMemo, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 //Components
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 
 //Libraries
 import jwtDecode from "jwt-decode";
@@ -16,7 +16,8 @@ import "slick-carousel/slick/slick-theme.css";
 //Main SASS File
 import "../scss/main.scss";
 
-//Functions
+//API Functions
+import { getProductsCart, addProductCart } from "../api/cart";
 import {
   setTokenToLocalStorage,
   getTokenOfLocalStorage,
@@ -62,6 +63,14 @@ export default function MyApp({ Component, pageProps }) {
     }
   };
 
+  const authAddProduct = (product) => {
+    if (auth) {
+      addProductCart(product);
+    } else {
+      toast.warning("You have to log in or sign up to buy a game");
+    }
+  };
+
   const authData = useMemo(
     () => ({
       auth,
@@ -75,10 +84,10 @@ export default function MyApp({ Component, pageProps }) {
   const cartData = useMemo(
     () => ({
       productsCart: 0,
-      addProductCart: () => null,
-      getProductCart: () => null,
+      addProductCart: (product) => authAddProduct(product),
+      getProductCart: () => getProductsCart,
       removeProductCart: () => null,
-      removeAllProductCart: () => null,
+      removeAllProductsCart: () => null,
     }),
     []
   );
