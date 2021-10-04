@@ -17,7 +17,11 @@ import "slick-carousel/slick/slick-theme.css";
 import "../scss/main.scss";
 
 //API Functions
-import { getProductsCart, addProductCart } from "../api/cart";
+import {
+  getProductsCart,
+  addProductCart,
+  countProductsCart,
+} from "../api/cart";
 import {
   setTokenToLocalStorage,
   getTokenOfLocalStorage,
@@ -31,6 +35,8 @@ import CartContext from "../context/CartContext";
 export default function MyApp({ Component, pageProps }) {
   const [auth, setAuth] = useState(undefined);
   const [reloadUser, setReloadUser] = useState(false);
+  const [totalProductsCart, setTotalProductsCart] = useState(0);
+  const [reloadCart, setReloadCart] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -46,6 +52,11 @@ export default function MyApp({ Component, pageProps }) {
 
     setReloadUser(false);
   }, [reloadUser]);
+
+  useEffect(() => {
+    setTotalProductsCart(countProductsCart());
+    setReloadCart(false);
+  }, [reloadCart, auth]);
 
   const login = (token) => {
     setTokenToLocalStorage(token);
@@ -66,6 +77,7 @@ export default function MyApp({ Component, pageProps }) {
   const authAddProduct = (product) => {
     if (auth) {
       addProductCart(product);
+      setReloadCart(true);
     } else {
       toast.warning("You have to log in or sign up to buy a game");
     }
@@ -83,13 +95,13 @@ export default function MyApp({ Component, pageProps }) {
 
   const cartData = useMemo(
     () => ({
-      productsCart: 0,
+      productsCart: totalProductsCart,
       addProductCart: (product) => authAddProduct(product),
       getProductCart: () => getProductsCart,
       removeProductCart: () => null,
       removeAllProductsCart: () => null,
     }),
-    []
+    [totalProductsCart]
   );
 
   if (auth === undefined) return null;
