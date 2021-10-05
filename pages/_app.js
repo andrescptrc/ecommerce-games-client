@@ -75,7 +75,9 @@ export default function MyApp({ Component, pageProps }) {
   };
 
   const authAddProduct = (product) => {
-    if (auth) {
+    const token = getTokenOfLocalStorage();
+
+    if (token) {
       addProductCart(product);
       setReloadCart(true);
     } else {
@@ -97,7 +99,7 @@ export default function MyApp({ Component, pageProps }) {
     () => ({
       productsCart: totalProductsCart,
       addProductCart: (product) => authAddProduct(product),
-      getProductCart: () => getProductsCart,
+      getProductsCart: getProductsCart,
       removeProductCart: () => null,
       removeAllProductsCart: () => null,
     }),

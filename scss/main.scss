@@ -9,6 +9,7 @@
 @import "./pages/index.scss";
 @import "./pages/wishlist.scss";
 @import "./pages/search.scss";
+@import "./pages/cart.scss";
 
 // Layouts
 @import "./layouts/BasicLayout.scss";
@@ -30,3 +31,4 @@
 @import "./components/Game/TabsGame.scss";
 @import "./components/Game/InfoGame.scss";
 @import "./components/Game/CarouselScreenshots.scss";
+@import "./components/Cart/SummaryCart/SummaryCart.scss";
