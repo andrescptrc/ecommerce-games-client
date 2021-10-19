@@ -4,9 +4,6 @@ import React, { useState, useEffect } from "react";
 import { Table, Image, Icon } from "semantic-ui-react";
 import { forEach, map } from "lodash";
 
-//Hooks
-import useCart from "../../../hooks/useCart";
-
 export default function SummaryCart({ products }) {
   return (
     <div className="summary-cart">
