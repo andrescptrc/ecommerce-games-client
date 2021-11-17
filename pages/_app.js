@@ -21,6 +21,7 @@ import {
   getProductsCart,
   addProductCart,
   countProductsCart,
+  removeProductCart,
 } from "../api/cart";
 import {
   setTokenToLocalStorage,
@@ -85,6 +86,11 @@ export default function MyApp({ Component, pageProps }) {
     }
   };
 
+  const removeProduct = (product) => {
+    removeProductCart(product);
+    setReloadCart(true);
+  };
+
   const authData = useMemo(
     () => ({
       auth,
@@ -100,7 +106,7 @@ export default function MyApp({ Component, pageProps }) {
       productsCart: totalProductsCart,
       addProductCart: (product) => authAddProduct(product),
       getProductsCart: getProductsCart,
-      removeProductCart: () => null,
+      removeProductCart: (product) => removeProduct(product),
       removeAllProductsCart: () => null,
     }),
     [totalProductsCart]
