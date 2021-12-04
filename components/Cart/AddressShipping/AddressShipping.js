@@ -46,8 +46,14 @@ function Address(props) {
   const { address } = props;
 
   return (
-    <div>
-      <p>Address</p>
+    <div className="address">
+      <p>{address.title}</p>
+      <p>{address.name}</p>
+      <p>{address.address}</p>
+      <p>
+        {address.city}, {address.state}, {address.postalCode}
+      </p>
+      <p>{address.phone}</p>
     </div>
   );
 }
