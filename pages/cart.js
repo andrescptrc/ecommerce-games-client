@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 //Components
 import BasicLayout from "../layouts/BasicLayout";
 import SummaryCart from "../components/Cart/SummaryCart";
+import AddressShipping from "../components/Cart/AddressShipping";
 
 //API Functions
 import { getGameByUrlApi } from "../api/game";
@@ -49,6 +50,7 @@ function FullCart(props) {
         reloadCart={reloadCart}
         setReloadCart={setReloadCart}
       />
+      <AddressShipping />
     </BasicLayout>
   );
 }
