@@ -18,8 +18,36 @@ export default function AddressShipping() {
   }, []);
 
   return (
+    <div className="address-shipping">
+      <div className="title">Address Shipping</div>
+      <div className="data">
+        {size(adresses) === 0 ? (
+          <h3>
+            There's no any address
+            <Link href="/account">
+              <a>create your first address</a>
+            </Link>
+          </h3>
+        ) : (
+          <Grid>
+            {map(adresses, (address) => (
+              <Grid.Column key={address.id} mobile={16} tablet={8} computer={4}>
+                <Address address={address} />
+              </Grid.Column>
+            ))}
+          </Grid>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function Address(props) {
+  const { address } = props;
+
+  return (
     <div>
-      <h1>AddressShipping</h1>
+      <p>Address</p>
     </div>
   );
 }

@@ -1,2 +1,17 @@
 .address-shipping {
+  padding: 1rem;
+
+  .title {
+    width: max-content;
+    background-color: $background-dark-absolute;
+    color: $font-light;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem 0.5rem 0 0;
+  }
+
+  .data {
+    background-color: $background-light;
+    box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+  }
 }
