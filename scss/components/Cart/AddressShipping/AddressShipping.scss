@@ -36,5 +36,13 @@
         font-size: 1.6rem;
       }
     }
+
+    &.active {
+      border-color: $primary;
+      background-color: #ffe2d4;
+      p {
+        border-color: $primary;
+      }
+    }
   }
 }
